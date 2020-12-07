@@ -42,6 +42,8 @@ class ScanFr extends MainClass {
                 thumbnail = mangaDetails.children[5].children[1].children[1].children[1].attribs.src;
                 status = mangaSpecificDetails.children[3].children[1].children[0].data;
                 autheurs.push(mangaSpecificDetails.children[7].children[1].children[0].data);
+                //FIXME Parfois n'existe pas
+                //https://www.scan-fr.cc/manga/bleach
                 date = mangaSpecificDetails.children[11].children[0].data;
                 categories.push(mangaSpecificDetails.children[15].children[1].children[0].data);
                 description = mangaDescription.children[1].children[1].children[3].children[0].data;
@@ -77,7 +79,14 @@ class ScanFr extends MainClass {
     async downloadChapters(mangaChapter: MangaChapter): Promise<string[]> {
         const data: string[] = [];
 
-        console.log("Downloading chapter " + mangaChapter.number + ": " + mangaChapter.name + "...");
+        const response = await got(mangaChapter.link);
+        if (response.statusCode === 200) {
+            const $ = cheerio.load(response.body);
+
+            await $("#all img").each((i: Number, elem: any) => {
+                data.push(elem.attribs["data-src"]);
+            });
+        }
 
         return Promise.resolve(data);
     }

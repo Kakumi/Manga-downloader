@@ -55,7 +55,8 @@ async function main() {
     if (mangasChapters.length == 0) {
         console.log("Une erreur est survenue avec le chargement des chapitres de ce service !");
     } else {
-        title("Select the chapter (* for all)");
+        //TODO Permettre de choisir plusieurs chapitre
+        title("Select the chapter");
         for(var i = 0; i < mangasChapters.length; i++) {
             var detailsChapter =  mangasChapters[i];
             console.log((i + 1) + ". " + detailsChapter.number + ": " + detailsChapter.name );

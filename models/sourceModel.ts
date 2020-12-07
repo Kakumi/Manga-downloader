@@ -25,7 +25,7 @@ export abstract class MainClass {
      */
     formatUrl(manga: string): string {
         //By default
-        return manga.trim().toLowerCase().replace(" ", "-");
+        return manga.trim().toLowerCase().replace(/\s/gmi, "-");
     }
 
     /**
