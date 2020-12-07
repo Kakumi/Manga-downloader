@@ -1,0 +1,32 @@
+{
+  "name": "manga-downloader",
+  "version": "1.0.0",
+  "description": "Download manga scan from a bunch of sources",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "nodemon index.ts",
+    "build": "tsc --project ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "manga",
+    "download",
+    "api",
+    "scan",
+    "fr",
+    "en",
+    "free"
+  ],
+  "author": "Kakumi",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "cli-progress": "^3.8.2",
+    "got": "^11.8.0",
+    "nodemon": "^2.0.6"
+  },
+  "devDependencies": {
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2"
+  }
+}
