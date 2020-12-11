@@ -3,15 +3,19 @@ const FOLDER = "data";
 const cliProgress = require('cli-progress');
 var cliColor = require("cli-color");
 const fetch = require('node-fetch');
+const LogerUtils = require('../utils/loger');
+const loger = new LogerUtils();
 import { MangaDetails } from "../models/mangaDetails";
 import { MangaChapter } from "../models/mangaChapter";
 import { MainClass } from "../models/sourceModel";
 
 //Import modules
 const ScanFr = require('./scanfr');
+const NiaddFr = require('./niadd.fr');
 
 const services: MainClass[] = [
-    ScanFr.class
+    ScanFr.class,
+    NiaddFr.class
 ];
 
 module.exports.search = async function load(manga: string): Promise<MangaDetails[]> {
@@ -37,11 +41,9 @@ module.exports.search = async function load(manga: string): Promise<MangaDetails
     createFolder();
 
     var json = JSON.stringify(data);
-    fs.writeFile(FOLDER + '/scanfr.json', json, function readFileCallback(err: any) {
+    fs.writeFile(FOLDER + '/' + manga.trim().replace(" ", "-") + '.json', json, function readFileCallback(err: any) {
         if (err) {
-            console.log(err);
-        } else {
-            //console.log("Data loaded & wrote successful!");
+            loger.error(err.message);
         }
     });
 

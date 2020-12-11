@@ -1,7 +1,16 @@
 import { MangaDetails } from "./mangaDetails";
 import { MangaChapter } from "./mangaChapter";
+const LogerUtils = require('../utils/loger');
+const loger = new LogerUtils();
 
 export abstract class MainClass {
+
+    /**
+     * Get loger to write info, warning or error
+     */
+    getLoger() {
+        return loger;
+    }
 
     /**
      * Get name of the module
