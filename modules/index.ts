@@ -71,6 +71,7 @@ module.exports.downloadChapters = async function load(mangaDetails: MangaDetails
         if (service !== undefined) {
             var nbImageDownloaded = 0;
             var filePath;
+            var extension;
 
             const mainFolder = "downloads";
             const mangaName = mangaDetails.title.trim().toLowerCase().replace(/\s/gmi, "-");
@@ -83,7 +84,8 @@ module.exports.downloadChapters = async function load(mangaDetails: MangaDetails
             bar.start(data.length, 0);
 
             for(var imgUrl of data) {
-                filePath = `${folder}/${nbImageDownloaded + 1}.jpg`;
+                extension = imgUrl.replace(/.+\./gmi, "");
+                filePath = `${folder}/${nbImageDownloaded + 1}.${extension}`;
                 loger.info(`Downloading ${imgUrl} to ${filePath}...`, service.getName());
                 await download(imgUrl, filePath);
                 bar.update(++nbImageDownloaded);
