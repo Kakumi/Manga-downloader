@@ -91,6 +91,7 @@ module.exports.downloadChapters = async function load(mangaDetails: MangaDetails
                 bar.update(++nbImageDownloaded);
             }
 
+            loger.info(`Download finished !`, service.getName());
             bar.stop();
     
             resolve(true);

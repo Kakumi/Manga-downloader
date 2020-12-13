@@ -162,7 +162,7 @@ export abstract class MainClass {
 
             data = await this.searchChapterImages(mangaChapter.link, $);
 
-            this.log("Chapter downloaded !");
+            this.log("Images loaded !");
         } else {
             this.warn("Getting chapter failed ! Response code is not 200 ! (" + response.statusCode + ")");
         }
