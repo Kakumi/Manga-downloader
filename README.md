@@ -1,6 +1,8 @@
 # Manga-downloader
 Get manga scan from bunch of sites (Multilanguages)
 
+[![Manga Downloader by Damien Brebion](https://img.youtube.com/vi/wmKw59L2YVw/0.jpg)](https://www.youtube.com/watch?v=wmKw59L2YVw "Manga Downloader by Damien Brebion")
+
 # How to install
 ## Step 1
 Download the project with 
