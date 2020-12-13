@@ -2,10 +2,17 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
+        "moduleResolution": "node",
         "rootDir": "./",
         "outDir": "./build",
+        "resolveJsonModule": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "esModuleInterop": true,
         "strict": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "lib": [
+            "es6"
+        ]
     }
 }

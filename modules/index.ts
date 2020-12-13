@@ -27,7 +27,7 @@ module.exports.search = async function load(manga: string): Promise<MangaDetails
     var serviceLoaded = 0;
 
     for(var service of services) {
-        const mangasDetails = await service.search(manga);
+        const mangasDetails = await service.getMangas(manga);
 
         for(mangaDetails of mangasDetails) {
             data.push(mangaDetails);
@@ -63,28 +63,32 @@ module.exports.getChapters = async function load(mangaDetails: MangaDetails): Pr
 }
 
 module.exports.downloadChapters = async function load(mangaDetails: MangaDetails, mangaChapter: MangaChapter): Promise<boolean> {
-    //const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
     const bar = getBar();
+
     const service = services.find(s => s.getName() == mangaDetails.source);
-    var nbDownloaded = 0;
     
     return new Promise(async(resolve, reject) => {
         if (service !== undefined) {
-            const mangaChapters = await service.downloadChapters(mangaChapter);
+            var nbImageDownloaded = 0;
+            var filePath;
 
             const mainFolder = "downloads";
             const mangaName = mangaDetails.title.trim().toLowerCase().replace(/\s/gmi, "-");
             const chapterName = mangaChapter.number.trim().toLowerCase().replace(/\s/gmi, "-");
             const folder = `${mainFolder}/${mangaName}/${chapterName}`;
-        
+
             await createDownloadFolder(folder);
 
-            bar.start(mangaChapters.length, 0);
-            for(var img of mangaChapters) {
-                await download(img, `${folder}/${nbDownloaded + 1}.jpg`);
+            const data = await service.getChaptersImages(mangaChapter);
+            bar.start(data.length, 0);
 
-                bar.update(++nbDownloaded);
+            for(var imgUrl of data) {
+                filePath = `${folder}/${nbImageDownloaded + 1}.jpg`;
+                loger.info(`Downloading ${imgUrl} to ${filePath}...`, service.getName());
+                await download(imgUrl, filePath);
+                bar.update(++nbImageDownloaded);
             }
+
             bar.stop();
     
             resolve(true);
@@ -106,12 +110,12 @@ async function download(url: string, filepath: string) {
 
     if (fs.existsSync(filepath)) {
         fs.unlink(filepath, (err) => {
-            if (err) throw err;
+            if (err) loger.error(err.message);
         });
     }
     
     fs.writeFile(filepath, buffer, (err) => {
-        if (err) throw err;
+        if (err) loger.error(err.message);
     });
 }
 

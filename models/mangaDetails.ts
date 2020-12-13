@@ -3,6 +3,7 @@ export class MangaDetails {
     source: string;
     thumbnail: string;
     link: string;
+    chapterLink: string;
     title: string;
     description?: string;
     category: string[];
@@ -16,7 +17,8 @@ export class MangaDetails {
      * @param track URL of the source module (eg: https://yyy.zzz)
      * @param source Name of the source module (eg: Scan-fr.cc (FR))
      * @param thumbnail URL of the manga picture
-     * @param link URL of the manga link
+     * @param link URL of the manga
+     * @param chapterLink URL of the manga chapters
      * @param title Name of the manga
      * @param description Description of the manga
      * @param category List of categories of the manga
@@ -25,11 +27,12 @@ export class MangaDetails {
      * @param date Date of first publication
      */
 
-    constructor(track: string, source: string, thumbnail: string, link: string, title: string, description: string, category: string[], status: string, authors: string[], date: string) {
+    constructor(track: string, source: string, thumbnail: string, link: string, chapterLink: string, title: string, description: string, category: string[], status: string, authors: string[], date: string) {
         this.track = track;
         this.source = source;
         this.thumbnail = thumbnail;
         this.link = link;
+        this.chapterLink = chapterLink;
         this.title = title;
         this.description = description;
         this.category = category;
