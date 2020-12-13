@@ -100,7 +100,6 @@ class NiaddFr extends MainClass {
 
     async searchChapters(searchedLink: string, $: any): Promise<MangaChapter[]> {
         const data: MangaChapter[] = [];
-        this.log(searchedLink);
 
         await $('.bookinfo-main-part .chapter-list a').each((i: Number, elem: any) => {
             data.push(new MangaChapter(
