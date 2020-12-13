@@ -104,3 +104,35 @@ const services: MainClass[] = [
 
 ## Step 4
 It must be working ! If you have any problem or suggestion feel free to update the code and add functionalities.
+
+# Loger
+There is a loger in the project, it will help you to find any error and get history of what you did. Basically it shows errors, warnings and informations. For example when the service is loading / loaded or when you are downloading images, ...<br><br>
+You can use it in 2 ways :
+
+## Way 1 : In a module
+Just call your parent
+
+```typescript
+this.log("My message");
+this.warn("My warning");
+this.error("My error");
+```
+
+## Way 2 : In a file
+Get the instance and use it
+
+```typescript
+const LogerUtils = require('../utils/loger');
+const loger = new LogerUtils([fileName[, folderName]]);
+
+loger.info("My message"[, TAG]);
+loger.warn("My warning"[, TAG]);
+loger.error("My error"[, TAG]);
+```
+
+# Todo
+We would like to add these functionnalities:
+1. Add history to download chapter easily
+2. Allow the user to cancel and go to the previous step
+3. Allow to download several chapters at the same time
+4. Get complete details of manga you searched. Actually you can get details of your searched in `data/<search_name>.json`
