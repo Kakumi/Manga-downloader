@@ -12,10 +12,12 @@ import { MainClass } from "../models/sourceModel";
 //Import modules
 const ScanFr = require('./scanfr');
 const NiaddFr = require('./niadd.fr');
+const MangakakalotEn = require('./mangakakalot.en');
 
 const services: MainClass[] = [
     ScanFr.class,
-    NiaddFr.class
+    NiaddFr.class,
+    //MangakakalotEn.class
 ];
 
 module.exports.search = async function load(manga: string): Promise<MangaDetails[]> {
@@ -74,8 +76,8 @@ module.exports.downloadChapters = async function load(mangaDetails: MangaDetails
             var extension;
 
             const mainFolder = "downloads";
-            const mangaName = mangaDetails.title.trim().toLowerCase().replace(/\s/gmi, "-");
-            const chapterName = mangaChapter.number.trim().toLowerCase().replace(/\s/gmi, "-");
+            var mangaName = formatForWindows(mangaDetails.title);
+            var chapterName = formatForWindows(mangaChapter.number);
             const folder = `${mainFolder}/${mangaName}/${chapterName}`;
 
             await createDownloadFolder(folder);
@@ -105,6 +107,19 @@ function createFolder() {
     if (!fs.existsSync(FOLDER)) {
         fs.mkdirSync(FOLDER);
     }
+}
+
+function formatForWindows(text: string): string {
+    var textFormatted = text.trim().toLowerCase();
+    textFormatted = textFormatted.replace(/</gmi, "-");
+    textFormatted = textFormatted.replace(/>/gmi, "-");
+    textFormatted = textFormatted.replace(/:/gmi, "-");
+    textFormatted = textFormatted.replace(/\|/gmi, "-");
+    textFormatted = textFormatted.replace(/\?/gmi, "-");
+    textFormatted = textFormatted.replace(/\*/gmi, "-");
+    textFormatted = textFormatted.replace(/\./gmi, "-");
+
+    return textFormatted;
 }
 
 async function download(url: string, filepath: string) {
